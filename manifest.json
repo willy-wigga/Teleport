@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/ToniMacaroni/RedLoader/main/MetadataSchema.json",
   "id": "Teleport",
-  "author": "Taniquiqua",
+  "author": "Hack",
   "version": "1.0.0",
   "description": "teleport to other players, or press 'tab' to teleport to the mountain top",
   "gameVersion": "1.0.0",
