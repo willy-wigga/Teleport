@@ -51,7 +51,8 @@ public class Teleport : SonsMod
             }
 
             // initiate teleport if there is a target player
-            if (_tp && Input.inputString.Length == 1 && Input.inputString.ToCharArray()[0] - '0' >= 1 && Input.inputString.ToCharArray()[0] - '0' <= listCount && Input.inputString.ToCharArray()[0] - '0' + _offset <= _players.Count())
+            int _inputInt = Input.inputString.ToCharArray().FirstOrDefault() - '0';
+            if (_tp && _inputInt >= 1 && _inputInt <= listCount && _inputInt + _offset <= _players.Count())
                 TP(Input.inputString.ToCharArray()[0] - '0' - 1);
 
             if (_tp && Input.mouseScrollDelta.y != 0)
