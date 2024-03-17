@@ -61,7 +61,7 @@ public class Teleport : SonsMod
 
     private void Scroll(bool _up)
     {
-        // Scroll up
+        // Scroll up, nested 'if' statements required to prevent scrolling down if _offset > 0 == false, while _up == true
         if (_up)
         {
             if (_offset > 0)
