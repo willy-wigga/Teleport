@@ -58,7 +58,8 @@ public class Teleport : SonsMod
             } else if (Input.GetKeyUp(KeyCode.Tab)) _holdTimer = 0;
 
             // initiate teleport if there is a target player
-            if (_tp && Input.inputString.Length == 1 && Input.inputString.ToCharArray()[0] - '0' >= 1 && Input.inputString.ToCharArray()[0] - '0' <= listCount && Input.inputString.ToCharArray()[0] - '0' + _offset <= _players.Count())
+            int _inputInt = Input.inputString.ToCharArray().FirstOrDefault() - '0';
+            if (_tp && _inputInt >= 1 && _inputInt <= listCount && _inputInt + _offset <= _players.Count())
                 TP(Input.inputString.ToCharArray()[0] - '0' - 1);
 
             if (_tp && Input.mouseScrollDelta.y != 0)
@@ -68,7 +69,7 @@ public class Teleport : SonsMod
 
     private void Scroll(bool _up)
     {
-        // Scroll up
+        // Scroll up, nested 'if' statements required to prevent scrolling down if _offset > 0 == false, while _up == true
         if (_up)
         {
             if (_offset > 0)
