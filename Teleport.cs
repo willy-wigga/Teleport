@@ -23,6 +23,7 @@ public class Teleport : SonsMod
     private bool _tp = false;
     private int _offset = 0;
     private float _timer = 0;
+    private float _holdTimer = 0;
 
     private readonly int listCount = 5;
 
@@ -41,14 +42,20 @@ public class Teleport : SonsMod
                 else _timer += Time.deltaTime;
             }
 
-            // check tp, or tp to the mountain
+            // tp to mountain if KeyCode.Tab is held for 3+ seconds
+            if (_holdTimer > 0 && Time.time - _holdTimer >= 3f)
+                TP(-1);
+
+            // check tp, or cancel tp
             if (Input.GetKeyDown(KeyCode.Tab))
             {
+                _holdTimer = Time.time;
+
                 if (!_tp)
                     CheckTP();
                 else
-                    TP(-1);
-            }
+                    EndTP();
+            } else if (Input.GetKeyUp(KeyCode.Tab)) _holdTimer = 0;
 
             // initiate teleport if there is a target player
             if (_tp && Input.inputString.Length == 1 && Input.inputString.ToCharArray()[0] - '0' >= 1 && Input.inputString.ToCharArray()[0] - '0' <= listCount && Input.inputString.ToCharArray()[0] - '0' + _offset <= _players.Count())
@@ -129,6 +136,8 @@ public class Teleport : SonsMod
         // TP to mountain
         if (_target == -1)
         {
+            _holdTimer = 0;
+
             LocalPlayer.SetPosition(new Vector3(201f, 739f, 144f));
             CaveEntranceManager.SetLocalPlayerCurrentArea((AreaMask)0);
         }
